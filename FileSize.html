@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频文件大小计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>视频文件大小计算器</h1>
+    <label for="bitrate">请输入码率 (Kbps):</label>
+    <input type="number" id="bitrate" required>
+    
+    <label for="time">请输入时间 (小时):</label>
+    <input type="number" id="time" required>
+    
+    <button onclick="calculateFileSize()">计算文件大小</button>
+    
+    <h2 id="result"></h2>
+
+    <script>
+        function calculateFileSize() {
+            const bitrate = parseFloat(document.getElementById('bitrate').value);
+            const time = parseFloat(document.getElementById('time').value);
+            
+            if (isNaN(bitrate) || isNaN(time) || bitrate <= 0 || time < 0) {
+                document.getElementById('result').innerText = "请输入有效的码率和时间！";
+                return;
+            }
+
+            // 计算文件大小
+            const seconds = time * 3600; // 转换为秒
+            const fileSizeBytes = (bitrate * 1024) * seconds / 8; // 字节
+            const fileSizeGB = fileSizeBytes / (1024 * 1024 * 1024); // GB
+            
+            document.getElementById('result').innerText = `生成的视频文件大小约为: ${fileSizeGB.toFixed(2)} GB`;
+        }
+    </script>
+
+</body>
+</html>
